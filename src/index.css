@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------- base ---------- */
+@layer base {
+  :root {
+    color-scheme: light;
+    --ring: 126 154 132;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    @apply bg-bg text-ink font-sans antialiased;
+    font-feature-settings: 'ss01', 'cv11', 'kern';
+  }
+
+  ::selection {
+    background-color: rgb(126 154 132 / 0.28);
+    color: #1c1b18;
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--ring));
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display text-ink;
+    font-variation-settings: 'opsz' 44;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  input,
+  textarea {
+    font: inherit;
+  }
+
+  /* Smooth anchor offset for sticky header */
+  section[id] {
+    scroll-margin-top: 5rem;
+  }
+}
+
+/* ---------- components ---------- */
+@layer components {
+  .container-prose {
+    @apply container max-w-5xl;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-eyebrow font-medium uppercase tracking-[0.18em] text-muted;
+  }
+
+  .eyebrow::before {
+    content: '';
+    @apply inline-block h-px w-8 bg-secondary;
+  }
+
+  .card-base {
+    @apply rounded-2xl border border-border bg-surface shadow-card transition-all duration-300 ease-soft;
+  }
+
+  .chip {
+    @apply inline-flex items-center rounded-full border border-border bg-bg px-3 py-1 text-sm font-medium text-ink transition-colors duration-200 hover:bg-hover;
+  }
+
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-size: 0 1px;
+    background-position: 0 100%;
+    transition: background-size 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .link-underline:hover,
+  .link-underline:focus-visible {
+    background-size: 100% 1px;
+  }
+
+  .grain {
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(28, 27, 24, 0.04) 1px, transparent 0);
+    background-size: 22px 22px;
+  }
+
+  .divider-dot {
+    @apply inline-block h-1 w-1 rounded-full bg-secondary;
+  }
+}
+
+/* ---------- utilities ---------- */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .mask-fade-b {
+    -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+  }
+}
