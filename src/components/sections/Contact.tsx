@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react';
-import { CheckCircle2, Github, Linkedin, Mail, Send } from 'lucide-react';
+import { CheckCircle2, Github, Linkedin, Mail, MapPin, Phone, Send } from 'lucide-react';
 import Section from '../ui/Section';
 import SectionHeader from '../ui/SectionHeader';
 import Reveal from '../ui/Reveal';
@@ -102,6 +102,17 @@ export default function Contact() {
                 icon={<Mail size={17} />}
                 label="Email"
                 value={site.email}
+              />
+              <ContactLink
+                href={`tel:+55${site.phone.replace(/\D/g, '')}`}
+                icon={<Phone size={17} />}
+                label="Telefone"
+                value={site.phone}
+              />
+              <ContactLink
+                icon={<MapPin size={17} />}
+                label="Localização"
+                value={site.location}
               />
               <ContactLink
                 href={site.github}
@@ -213,42 +224,57 @@ function ContactLink({
   value,
   external = false,
 }: {
-  href: string;
+  href?: string;
   icon: React.ReactNode;
   label: string;
   value: string;
   external?: boolean;
 }) {
-  return (
-    <li>
-      <a
-        href={href}
-        {...(external
-          ? { target: '_blank', rel: 'noopener noreferrer' }
-          : null)}
-        className="group flex items-center justify-between gap-4 rounded-xl border border-border bg-surface px-4 py-3.5 transition-all duration-300 ease-soft hover:border-ink/20 hover:shadow-card"
-      >
-        <div className="flex items-center gap-3">
-          <span
-            className="grid h-9 w-9 place-items-center rounded-lg bg-bg text-primary-700"
-            aria-hidden
-          >
-            {icon}
-          </span>
-          <div>
-            <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted">
-              {label}
-            </p>
-            <p className="mt-0.5 text-[15px] font-medium">{value}</p>
-          </div>
+  const content = (
+    <>
+      <div className="flex items-center gap-3">
+        <span
+          className="grid h-9 w-9 place-items-center rounded-lg bg-bg text-primary-700"
+          aria-hidden
+        >
+          {icon}
+        </span>
+        <div>
+          <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted">
+            {label}
+          </p>
+          <p className="mt-0.5 text-[15px] font-medium">{value}</p>
         </div>
+      </div>
+      {href && (
         <span
           aria-hidden
           className="text-muted transition-transform duration-300 ease-soft group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-ink"
         >
           →
         </span>
-      </a>
+      )}
+    </>
+  );
+
+  const baseClass =
+    'group flex items-center justify-between gap-4 rounded-xl border border-border bg-surface px-4 py-3.5';
+
+  return (
+    <li>
+      {href ? (
+        <a
+          href={href}
+          {...(external
+            ? { target: '_blank', rel: 'noopener noreferrer' }
+            : null)}
+          className={`${baseClass} transition-all duration-300 ease-soft hover:border-ink/20 hover:shadow-card`}
+        >
+          {content}
+        </a>
+      ) : (
+        <div className={baseClass}>{content}</div>
+      )}
     </li>
   );
 }

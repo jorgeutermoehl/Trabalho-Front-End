@@ -2,7 +2,6 @@ import { ArrowRight, Download, Mail } from 'lucide-react';
 import { motion, useReducedMotion } from 'framer-motion';
 import Button from '../ui/Button';
 import { site } from '../../data/content';
-import profilePlaceholder from '../../assets/profile-placeholder.svg';
 
 export default function Hero() {
   const reduce = useReducedMotion();
@@ -117,8 +116,8 @@ export default function Hero() {
           >
             <div className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-border bg-bg-alt shadow-card">
               <img
-                src={profilePlaceholder}
-                alt="Foto de Jorge Utermoehl (placeholder — substitua por /public/profile.jpg)"
+                src="/profile.jpg"
+                alt="Foto de Jorge Utermoehl"
                 className="h-full w-full object-cover"
                 loading="eager"
                 decoding="async"
